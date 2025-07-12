@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: frames-app
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "./start.sh"
+    plan: free
+    envVars:
+      - key: PORT
+        value: 10000
+    autoDeploy: true
