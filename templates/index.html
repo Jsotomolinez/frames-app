@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+{% include 'header.html' %}
+<body>
+  <div class="container">
+    <h2>Sube un video para tener una captura por segundo del mismo</h2>
+    <form id="uploadForm" action="/upload_video" method="post" enctype="multipart/form-data">
+      <div class="upload-area" id="uploadArea">
+        <div class="upload-content">
+          <div class="upload-icon">📹</div>
+          <h3>Arrastra tu video aquí</h3>
+          <p>o haz clic para seleccionar</p>
+          <input type="file" id="videoInput" name="file" accept=".mp4,video/mp4" hidden required>
+          <button type="button" class="select-btn" onclick="document.getElementById('videoInput').click()">
+            Seleccionar Video
+          </button>
+        </div>
+      </div>
+      <button type="submit" class="upload-btn" id="uploadBtn" disabled>
+        Subir Video
+      </button>
+    </form>
+    <div class="file-info" id="fileInfo" style="display: none;">
+      <h3>Archivo seleccionado:</h3>
+      <div class="file-details">
+        <p><strong>Nombre:</strong> <span id="fileName"></span></p>
+        <p><strong>Tamaño:</strong> <span id="fileSize"></span></p>
+        <p><strong>Tipo:</strong> <span id="fileType"></span></p>
+      </div>
+      <button type="button" class="remove-btn" onclick="removeFile()">
+        Quitar archivo
+      </button>
+    </div>
+    <div class="video-preview" id="videoPreview" style="display: none;">
+      <h3>Vista previa:</h3>
+      <video id="previewVideo" controls>
+        Tu navegador no soporta el elemento video.
+      </video>
+    </div>
+    <div class="upload-progress" id="uploadProgress" style="display: none;">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <p class="progress-text" id="progressText">0%</p>
+    </div>
+    <!-- El botón de subir video ahora está dentro del formulario -->
+  </div>
+  {% include 'footer.html' %}
+  <script src="/static/videoInput.js"></script>
+  <script>
+    // Al cargar la página, limpiar el formulario y deshabilitar el botón de subir
+    window.addEventListener('pageshow', function() {
+      document.getElementById('uploadForm').reset();
+      document.getElementById('uploadBtn').disabled = true;
+      document.getElementById('fileInfo').style.display = 'none';
+      document.getElementById('videoPreview').style.display = 'none';
+      document.getElementById('uploadProgress').style.display = 'none';
+    });
+  </script>
+</body>
+</html>

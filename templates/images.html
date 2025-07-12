@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<body>
+{% include 'header.html' %}
+
+<div class="container">
+  <h2>Capturas de video</h2>
+  {% if images %}
+    <div class="images-gallery">
+      {% for image in images %}
+        <div class="image-item">
+          <h3>{{image.nombre}}</h3>
+          <img src={{image.src}} alt="Captura de video">
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No se encontraron imágenes.</p>
+  {% endif %}
+</div>
+  
+{% include 'footer.html' %}
+</body>
+</html>
