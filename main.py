@@ -3,10 +3,8 @@ from fastapi import FastAPI, UploadFile, File, Form, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import JSONResponse
 import os
-from typing import List, Dict
-from fastapi import Query
+
 
 app = FastAPI(
     title="frames-app",
@@ -19,14 +17,12 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 templates = Jinja2Templates(directory="templates")
-# Nuevo endpoint: solo requiere el archivo de video
+
+
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-
-
-from typing import Optional
 
 @app.get("/images", response_class=HTMLResponse)
 async def images(request: Request):
@@ -44,7 +40,6 @@ async def images(request: Request):
 
 
 
-# Nuevo endpoint: solo requiere el archivo de video
 @app.post("/upload_video")
 async def upload_video(request: Request, file: UploadFile = File(...)):
     # Carpeta y nombre base automáticos
